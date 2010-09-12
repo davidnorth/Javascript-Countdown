@@ -6,18 +6,21 @@ var CountdownTimer = function(options){
                           onTick: null,
                           onComplete: null
 			},options || {});
-
 };
 
 CountdownTimer.prototype = {
 
   start: function(){
+    this.reset();
+    this.interval = window.setInterval($.proxy(this.tick, this), 1000);
+  },
+
+  reset: function(){
     if(this.interval){
       clearInterval(this.interval);
     }
     this.secondsRemaining = this.settings.seconds;
     this.tick();
-    this.interval = window.setInterval($.proxy(this.tick, this), 1000);
   },
 
   tick: function(){
@@ -26,6 +29,7 @@ CountdownTimer.prototype = {
     this.fMins = this.formatNumber(this.minutesRemaining);
     this.fSecs = this.formatNumber(this.minuteSecondsRemaining);
     if(this.settings.onTick){
+      console.log(this.settings.onTick);
       this.settings.onTick();
     }
     if(this.secondsRemaining == 0){

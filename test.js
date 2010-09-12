@@ -15,5 +15,9 @@ $(document).ready(function(){
     timer.start();
   });
 
+  $('#reset').click(function(){
+    timer.reset();
+  });
+
 });
 
